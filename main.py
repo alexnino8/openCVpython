@@ -1,6 +1,8 @@
-def main():
-    print("Hello from viendo-caras-proyecto-open-cv!")
+# Importacion
+import cv2
 
+# abrir la cámara
+vision = cv2.VideoCapture(0)
 
-if __name__ == "__main__":
-    main()
+# la funcion read() permite convertir < cv2.VideoCapture 0x101e89690> en algo mas legible
+print(vision.read())
