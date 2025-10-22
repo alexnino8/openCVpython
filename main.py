@@ -4,6 +4,10 @@ import cv2
 # abrir la cámara
 vision = cv2.VideoCapture(0)
 
+
+
+# face cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 # la funcion read() permite convertir < cv2.VideoCapture 0x101e89690> en algo mas legible
 while True:
     # checar si se ha podido capturar la imagen
@@ -17,8 +21,15 @@ while True:
     # convertimos la imagen a escala de grises
     captura_byn = cv2.cvtColor(captura, cv2.COLOR_BGR2GRAY)
 
+
+    cara_detectada = face_cascade.detectMultiScale(captura_byn, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+    for (x, y, w, h) in cara_detectada:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+
     # cv2 tiene una funcion que automaticamente construye la imagen pixel a pixel
-    cv2.imshow('Video tiempo real', clasificador_rostros) # image show -> imshow
+    cv2.imshow('Video tiempo real', frame) # image show -> imshow
 
     # Tenemos que agregar una condicion de salida
     # Salir con la tecla 'q'
